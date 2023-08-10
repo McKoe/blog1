@@ -112,8 +112,10 @@ mergehex -m bl_soft_device.hex application_buzzao.hex -o FW_EB01_vxx.hex
 
 ```
 
-### Guia detalhado
+<details>
+<summary>explicação dos comandos acima</summary>
 
+### Guia detalhado
 
 #### Gerar o arquivo `settings.hex`
 
@@ -145,9 +147,12 @@ mergehex -m bootloader_settings.hex soft_device.hex -o bl_soft_device.hex
 mergehex -m bl_soft_device.hex application_buzzao.hex -o FW_EB01_vxx.hex
 ```
 
+</details>
+
+
 ## Gravação
 
-Para fazer o flash é necessário usar um gravador SWD.
+Para fazer o flash é necessário usar um gravador JTag ou SWD.
 
 
 [ext-icon]: http://www.koetzler.com/ext.png "External link"
