@@ -77,14 +77,12 @@ Agora o projeto está corretamente configurado, com compilador e Make em locais 
 
 ### 6 - Preparação Nordic
 
-1. Baixe o programa [nrfutil.exe](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Util). ![ext-icon]
- 1. e copie para a pasta `C:\tools\binutils\`.
+1. Baixe o programa [nrfutil.exe](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Util). ![ext-icon] e copie para a pasta `C:\tools\binutils\`.
 
-2. Execute na linha de comando: `nrfutil install nrf5sdk-tools`
- - isso instala o comando `settings` no `nrfutil`
+2. Execute na linha de comando: `nrfutil install nrf5sdk-tools` (isso instala o comando `settings` no `nrfutil`)
 
-3. Instale o [Nordic nrf-command-line-tools-xxxxx.exe](https://www.nordicsemi.com/Products/Development-tools/nRF-Command-Line-Tools/Download?lang=en#infotabs) ![ext-icon]
- - adiciona o comando `mergehex` que será usado para fazer os merges.
+3. Instale o [nrf-command-line-tools-xxxxx.exe](https://www.nordicsemi.com/Products/Development-tools/nRF-Command-Line-Tools/Download?lang=en#infotabs) ![ext-icon]
+ - isso adiciona o comando `mergehex` que será usado para fazer os merges.
  - instale somente o `mergehex` nas opções apresentadas.
  - não instale o gravador que será sugerido na sequência.
  - **copie o arquivo** instalado `mergehex.exe` para a pasta `C:\tools\binutils\`
@@ -93,27 +91,40 @@ Agora o projeto está corretamente configurado, com compilador e Make em locais 
 ## Compilando os projetos
 
 
-As partes `Application` e `Bootloader` possuem `Makefile` exclusivos, dentro da pasta `Build` de cada projeto.
+As partes `Application` e `Bootloader` possuem `Makefile` separados, dentro da pasta `Build` de cada um. Normalmente só o `Application` é alterado e precisa ser recompilado.
 
 Para compilar, pelo terminal, vá para a pasta desejada (`....\application\build\`), que contém o arquivo `Makefile` e execute `make`.
+
+Se somente o `Application` foi compilado, copie os arquivos `bootloader.hex` e `soft_device.hex` da pasta `boot_softdevice` para a pasta `Binary`.
 
 
 ## Passos para criar imagem única (bootloader + softdevice + aplicação)
 
+### Guia rápido
 
-### Gerar o arquivo `settings.hex`
+Após compilar, vá para a subpasta `Binary`
 
-Em seguida `cd Binary`
+```
+nrfutil settings generate --family NRF52 --application application_buzzao.hex --application-version 1 --bootloader-version 1 --bl-settings-version 2 settings.hex
+mergehex -m bootloader.hex settings.hex -o bootloader_settings.hex
+mergehex -m bootloader_settings.hex soft_device.hex -o bl_soft_device.hex
+mergehex -m bl_soft_device.hex application_buzzao.hex -o FW_EB01_vxx.hex
+```
 
-Copiar os arquivos `bootloader.hex` e `soft_device.hex` da pasta `boot_softdevice` para a pasta `Binary`.
+### Guia detalhado
 
-A partir do `application_buzzao.hex` gerado na compilação, fazendo:
+
+#### Gerar o arquivo `settings.hex`
+
+Após compilar, vá para a subpasta `Binary`
+
+A partir do `application_buzzao.hex` gerado na compilação, gere o `settings.hex` com:
 
 ```
 nrfutil settings generate --family NRF52 --application application_buzzao.hex --application-version 1 --bootloader-version 1 --bl-settings-version 2 settings.hex
 ```
 
-### Merge
+#### Merge
 
 1. Realizar o merge do `bootloader` com o `settings`:
 
