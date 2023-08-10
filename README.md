@@ -102,7 +102,7 @@ Se somente o `Application` foi compilado, copie os arquivos `bootloader.hex` e `
 
 ### Guia rápido
 
-Após compilar, vá para a subpasta `Binary`
+Após compilar, vá para a subpasta `Binary` e execute esta sequência de comandos:
 
 ```
 nrfutil settings generate --family NRF52 --application application_buzzao.hex --application-version 1 --bootloader-version 1 --bl-settings-version 2 settings.hex
