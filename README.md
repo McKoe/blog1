@@ -109,6 +109,7 @@ nrfutil settings generate --family NRF52 --application application_buzzao.hex --
 mergehex -m bootloader.hex settings.hex -o bootloader_settings.hex
 mergehex -m bootloader_settings.hex soft_device.hex -o bl_soft_device.hex
 mergehex -m bl_soft_device.hex application_buzzao.hex -o FW_EB01_vxx.hex
+
 ```
 
 ### Guia detalhado
