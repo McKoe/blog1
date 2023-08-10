@@ -75,30 +75,31 @@ GNU_PREFIX := arm-none-eabi
 Agora o projeto está corretamente configurado, com compilador e Make em locais definidos.
 
 
+### 6 - Preparação Nordic
+
+1. Baixe o programa [nrfutil.exe](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Util). ![ext-icon]
+ 1. e copie para a pasta `C:\tools\binutils\`.
+
+2. Execute na linha de comando: `nrfutil install nrf5sdk-tools`
+ - isso instala o comando `settings` no `nrfutil`
+
+3. Instale o [Nordic nrf-command-line-tools-xxxxx.exe](https://www.nordicsemi.com/Products/Development-tools/nRF-Command-Line-Tools/Download?lang=en#infotabs) ![ext-icon]
+ - adiciona o comando `mergehex` que será usado para fazer os merges.
+ - instale somente o `mergehex` nas opções apresentadas.
+ - não instale o gravador que será sugerido na sequência.
+ - **copie o arquivo** instalado `mergehex.exe` para a pasta `C:\tools\binutils\`
+
+
 ## Compilando os projetos
 
 
 As partes `Application` e `Bootloader` possuem `Makefile` exclusivos, dentro da pasta `Build` de cada projeto.
 
-Para compilar, pelo terminal, vá para a pasta desejada, que contém o arquivo `Makefile` e execute `make`.
+Para compilar, pelo terminal, vá para a pasta desejada (`....\application\build\`), que contém o arquivo `Makefile` e execute `make`.
 
 
-## Passo a passo para criar imagem única (bootloader + softdevice + aplicação)
+## Passos para criar imagem única (bootloader + softdevice + aplicação)
 
-
-### Preparação
-
-1. Baixe o programa [nrfutil.exe](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Util). ![ext-icon]
- - e copie para a pasta `C:\tools\binutils\`.
-
-2. Execute na linha de comando: `nrfutil install nrf5sdk-tools`
- - instala o comando `settings` no `nrfutil`
-
-3. Instale o [Nordic nrf-command-line-tools-xxxxx.exe](https://www.nordicsemi.com/Products/Development-tools/nRF-Command-Line-Tools/Download?lang=en#infotabs) ![ext-icon]
- - adiciona o comando `mergehex` que será usado para fazer os merges.
- - instale somente o `mergehex` nas opções apresentadas.
- - não instale o gravador que será sugerido na seguência.
- - copie o arquivo instalado `mergehex.exe` na pasta `C:\tools\binutils\`
 
 ### Gerar o arquivo `settings.hex`
 
